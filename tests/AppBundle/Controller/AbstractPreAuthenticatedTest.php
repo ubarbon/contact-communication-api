@@ -36,7 +36,7 @@ abstract class AbstractPreAuthenticatedTest extends WebTestCase
     private function getUserAccess()
     {
         if (self::$userAccess === null) {
-            self::$userAccess = $this->login(UserFixtures::EXAMPLE_USERNAME, UserFixtures::EXAMPLE_USERNAME);
+            self::$userAccess = $this->login(UserFixtures::EXAMPLE_USER_USERNAME, UserFixtures::EXAMPLE_USER_USERNAME);
         }
 
         return self::$userAccess;

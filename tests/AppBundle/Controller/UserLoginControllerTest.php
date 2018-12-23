@@ -69,8 +69,8 @@ class UserLoginControllerTest extends WebTestCase
             'grant_type' => 'password',
             'client_id' => '1_' . ClientFixtures::RANDOM_CLIENT,
             'client_secret' => ClientFixtures::SECRET_CLIENT,
-            'username' => UserFixtures::EXAMPLE_USERNAME,
-            'password' => UserFixtures::EXAMPLE_USERNAME
+            'username' => UserFixtures::EXAMPLE_USER_USERNAME,
+            'password' => UserFixtures::EXAMPLE_USER_USERNAME
         );
 
         $client->request('POST', '/oauth/v2/token', $parameters);

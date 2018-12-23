@@ -15,7 +15,7 @@ class AccessTokenFixtures extends Fixture implements OrderedFixtureInterface //T
 
         // Access without expiration to postman, etc, avoid re-login
         $exampleUserAccessTokenWithoutExpiration = new AccessToken();
-        $exampleUserAccessTokenWithoutExpiration->setUser($this->getReference(UserFixtures::EXAMPLE_USERNAME));
+        $exampleUserAccessTokenWithoutExpiration->setUser($this->getReference(UserFixtures::EXAMPLE_USER_REF));
         $exampleUserAccessTokenWithoutExpiration->setClient($this->getReference(ClientFixtures::API_CLIENT_REFERENCE));
         $exampleUserAccessTokenWithoutExpiration->setExpiresAt(null);
         $exampleUserAccessTokenWithoutExpiration->setToken('example_user_without_expiration');

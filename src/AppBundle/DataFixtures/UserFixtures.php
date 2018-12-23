@@ -11,7 +11,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserFixtures extends Fixture implements OrderedFixtureInterface
 {
 
-    const EXAMPLE_USERNAME = 'example@domain.com';
+    const EXAMPLE_USER_REF = 'example-user';
+
+    const EXAMPLE_USER_EMAIL = 'example@domain.com';
+    const EXAMPLE_USER_USERNAME = '611111111'; // Phone number like username
 
     /**
      * @var UserPasswordEncoderInterface $encoder
@@ -31,17 +34,18 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         //Example User
-        $userRoot = new User();
-        $userRoot->setEnabled(true);
-        $userRoot->setUsername(self::EXAMPLE_USERNAME);
-        $userRoot->setEmail(self::EXAMPLE_USERNAME);
-        $userRoot->addRole('ROLE_USER');
+        $user = new User();
+        $user->setPhoneNumber(self::EXAMPLE_USER_USERNAME); // Because username is a phone number
+        $user->setEnabled(true);
+        $user->setUsername(self::EXAMPLE_USER_USERNAME);
+        $user->setEmail(self::EXAMPLE_USER_EMAIL);
+        $user->addRole('ROLE_USER');
 
-        $password = $this->encoder->encodePassword($userRoot, $userRoot->getUsername());
-        $userRoot->setPassword($password);
+        $password = $this->encoder->encodePassword($user, $user->getUsername()); // Password same username
+        $user->setPassword($password);
 
-        $this->addReference(self::EXAMPLE_USERNAME, $userRoot);
-        $manager->persist($userRoot);
+        $this->addReference(self::EXAMPLE_USER_REF, $user);
+        $manager->persist($user);
 
 
         $manager->flush();
