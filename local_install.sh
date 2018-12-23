@@ -10,4 +10,4 @@ php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --dump-sql --force
 php bin/console doctrine:fixtures:load -n
 
-#Here can be executed automatically the test with phpunit, right now phpunit is executed in demand
+#Here can be executed automatically the test with phpunit, right now phpunit is executed in demand/manually
