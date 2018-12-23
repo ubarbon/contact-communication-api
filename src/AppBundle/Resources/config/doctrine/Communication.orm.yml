@@ -1,0 +1,35 @@
+AppBundle\Entity\Communication:
+  type: entity
+  table: null
+  inheritanceType: JOINED
+  discriminatorColumn:
+    name: type
+    type: string
+  discriminatorMap:
+    call: CallCommunication
+    sms: SMSCommunication
+  repositoryClass: AppBundle\Repository\CommunicationRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    hash:
+        type: string
+        length: '32'
+    incoming:
+      type: boolean
+    date:
+      type: datetime
+  manyToOne:
+    user:
+      targetEntity: User
+      joinColumn:
+        nullable: false
+    contact:
+      targetEntity: Contact
+      joinColumn:
+        nullable: false
+  lifecycleCallbacks: {  }

@@ -1,0 +1,5 @@
+AppBundle\Entity\SMSCommunication:
+  type: entity
+  table: null
+  repositoryClass: AppBundle\Repository\SMSCommunicationRepository
+  lifecycleCallbacks: {  }

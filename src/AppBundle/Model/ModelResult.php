@@ -61,4 +61,20 @@ class ModelResult
     {
         $this->records = $records;
     }
+
+    /**
+     * @param ModelResult $modelResult
+     * @param int $page
+     * @param int $total
+     * @return array
+     */
+    public static function getPaginationResponse(ModelResult $modelResult, $page, $total)
+    {
+        return array(
+            'page' => (int)$page,
+            'total' => (int)$total,
+            'totalRecords' => $modelResult->getTotalRecords(),
+            'hasNext' => (($page * $total) < $modelResult->getTotalRecords())
+        );
+    }
 }

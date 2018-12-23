@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Model\Contact\ContactResponse;
+use AppBundle\Model\Contact\ContactsResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -28,6 +28,6 @@ class ContactController extends Controller
 
         $contactsResult = $this->getDoctrine()->getManager()->getRepository('AppBundle:Contact')->getContactsResult($this->getUser()->getId(), (($page - 1) * $total), $total);
 
-        return $this->json(ContactResponse::getResponse($contactsResult, $page, $total));
+        return $this->json(ContactsResponse::getResponse($contactsResult, $page, $total));
     }
 }

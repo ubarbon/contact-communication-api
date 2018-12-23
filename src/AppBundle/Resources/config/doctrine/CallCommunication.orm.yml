@@ -1,0 +1,9 @@
+AppBundle\Entity\CallCommunication:
+  type: entity
+  table: null
+  repositoryClass: AppBundle\Repository\CallCommunicationRepository
+  fields:
+    duration:
+      type: string
+      length: '6'
+  lifecycleCallbacks: {  }

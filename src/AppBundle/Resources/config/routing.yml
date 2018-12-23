@@ -5,3 +5,12 @@ api_v1_get_contacts:
   requirements:
     page: \d+
     total: \d+
+
+api_v1_get_contact_communications:
+  path:     /contact/{contactId}/communications/page/{page}/total/{total}
+  controller: AppBundle:Communication:getCommunications
+  methods:    [GET]
+  requirements:
+    contactId: \d+
+    page: \d+
+    total: \d+

@@ -71,6 +71,45 @@
 				"description": null
 			},
 			"response": []
+		},
+		{
+			"name": "Contact Communications",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{example_user_access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"grant_type\":\"password\",\n  \"client_id\": \"{{client_id}}\",\n  \"client_secret\":\"{{client_secret}}\",\n  \"username\":\"{{username}}\",\n  \"password\":\"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/contact/1/communications/page/1/total/10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contact",
+						"1",
+						"communications",
+						"page",
+						"1",
+						"total",
+						"10"
+					]
+				},
+				"description": null
+			},
+			"response": []
 		}
 	]
 }

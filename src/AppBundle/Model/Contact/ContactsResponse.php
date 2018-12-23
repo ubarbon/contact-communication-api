@@ -5,10 +5,10 @@ namespace AppBundle\Model\Contact;
 use AppBundle\Model\ModelResult;
 
 /**
- * Class ContactResponse
+ * Class ContactsResponse
  * @package AppBundle\Model\Contact
  */
-class ContactResponse
+class ContactsResponse
 {
 
     /**
@@ -19,13 +19,8 @@ class ContactResponse
      */
     public static function getResponse(ModelResult $modelResult, $page, $total)
     {
-        $response = array(
-            'page' => (int)$page,
-            'total' => (int)$total,
-            'totalRecords' => $modelResult->getTotalRecords(),
-            'hasNext' => (($page * $total) < $modelResult->getTotalRecords()),
-            'contacts' => array()
-        );
+        $response = ModelResult::getPaginationResponse($modelResult, $page, $total);
+        $response['contacts'] = array();
 
         foreach ($modelResult->getRecords() as $contact) {
             $response['contacts'][] = array(

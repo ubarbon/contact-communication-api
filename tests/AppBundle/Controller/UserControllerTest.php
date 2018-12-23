@@ -4,6 +4,10 @@ namespace Tests\AppBundle\Controller\User;
 
 use Tests\AppBundle\Controller\AbstractPreAuthenticatedTest;
 
+/**
+ * Class UserControllerTest
+ * @package Tests\AppBundle\Controller\User
+ */
 class UserControllerTest extends AbstractPreAuthenticatedTest
 {
     public function testGetContactsAction()
@@ -12,24 +16,8 @@ class UserControllerTest extends AbstractPreAuthenticatedTest
         $total = 1; // to try paging with little data
 
         do {
-            $client = $this->makeRequestWithAccess('GET', "api/v1/contacts/page/$page/total/$total");
-
-            $this->assertEquals(200, $client->getResponse()->getStatusCode());
-            $this->assertJson($client->getResponse()->getContent());
-
-            $contactsResponse = json_decode($client->getResponse()->getContent(), true);
-
-            $this->assertTrue(is_array($contactsResponse));
-            $this->assertArrayHasKey('page', $contactsResponse);
-            $this->assertArrayHasKey('total', $contactsResponse);
-            $this->assertArrayHasKey('totalRecords', $contactsResponse);
-            $this->assertArrayHasKey('hasNext', $contactsResponse);
-
-            $this->assertArrayHasKey('contacts', $contactsResponse);
-            $this->assertTrue(is_array($contactsResponse['contacts']));
-            foreach ($contactsResponse['contacts'] as $contact) {
-                $this->validateContactData($contact);
-            }
+            // Fetch contacts from user
+            $contactsResponse = self::getContactsResponse($this, $page, $total);
 
             $this->assertTrue($contactsResponse['page'] === $page);
             $this->assertTrue($contactsResponse['total'] === $total);
@@ -40,11 +28,45 @@ class UserControllerTest extends AbstractPreAuthenticatedTest
 
     }
 
-    private function validateContactData($contactData)
+    /**
+     * @param AbstractPreAuthenticatedTest $abstractPreAuthenticatedTest
+     * @param int $page
+     * @param int $total
+     * @return mixed
+     */
+    public static function getContactsResponse(AbstractPreAuthenticatedTest $abstractPreAuthenticatedTest, $page, $total)
     {
-        $this->assertTrue(is_array($contactData));
-        $this->assertArrayHasKey('id', $contactData);
-        $this->assertArrayHasKey('name', $contactData);
-        $this->assertArrayHasKey('phoneNumber', $contactData);
+        $client = $abstractPreAuthenticatedTest->makeRequestWithAccess('GET', "api/v1/contacts/page/$page/total/$total");
+
+        $abstractPreAuthenticatedTest->assertEquals(200, $client->getResponse()->getStatusCode());
+        $abstractPreAuthenticatedTest->assertJson($client->getResponse()->getContent());
+
+        $contactsResponse = json_decode($client->getResponse()->getContent(), true);
+
+        $abstractPreAuthenticatedTest->assertTrue(is_array($contactsResponse));
+        $abstractPreAuthenticatedTest->assertArrayHasKey('page', $contactsResponse);
+        $abstractPreAuthenticatedTest->assertArrayHasKey('total', $contactsResponse);
+        $abstractPreAuthenticatedTest->assertArrayHasKey('totalRecords', $contactsResponse);
+        $abstractPreAuthenticatedTest->assertArrayHasKey('hasNext', $contactsResponse);
+
+        $abstractPreAuthenticatedTest->assertArrayHasKey('contacts', $contactsResponse);
+        $abstractPreAuthenticatedTest->assertTrue(is_array($contactsResponse['contacts']));
+        foreach ($contactsResponse['contacts'] as $contact) {
+            self::validateContactData($abstractPreAuthenticatedTest, $contact);
+        }
+
+        return $contactsResponse;
+    }
+
+    /**
+     * @param AbstractPreAuthenticatedTest $abstractPreAuthenticatedTest
+     * @param array $contactData
+     */
+    public static function validateContactData(AbstractPreAuthenticatedTest $abstractPreAuthenticatedTest, $contactData)
+    {
+        $abstractPreAuthenticatedTest->assertTrue(is_array($contactData));
+        $abstractPreAuthenticatedTest->assertArrayHasKey('id', $contactData);
+        $abstractPreAuthenticatedTest->assertArrayHasKey('name', $contactData);
+        $abstractPreAuthenticatedTest->assertArrayHasKey('phoneNumber', $contactData);
     }
 }
