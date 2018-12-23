@@ -54,14 +54,18 @@
 					"raw": "{\n  \"grant_type\":\"password\",\n  \"client_id\": \"{{client_id}}\",\n  \"client_secret\":\"{{client_secret}}\",\n  \"username\":\"{{username}}\",\n  \"password\":\"{{password}}\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/api/v2/contacts",
+					"raw": "{{host}}/api/v1/contacts/page/1/total/10",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
-						"v2",
-						"contacts"
+						"v1",
+						"contacts",
+						"page",
+						"1",
+						"total",
+						"10"
 					]
 				},
 				"description": null
