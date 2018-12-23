@@ -1,0 +1,39 @@
+{
+	"info": {
+		"name": "Contact Communication",
+		"_postman_id": "860e49a5-e596-4334-b320-16fbbcfe5100",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"grant_type\":\"password\",\n  \"client_id\": \"{{client_id}}\",\n  \"client_secret\":\"{{client_secret}}\",\n  \"username\":\"{{username}}\",\n  \"password\":\"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/oauth/v2/token",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"oauth",
+						"v2",
+						"token"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		}
+	]
+}
