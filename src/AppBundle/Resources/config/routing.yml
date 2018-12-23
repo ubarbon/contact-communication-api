@@ -1,0 +1,7 @@
+api_v1_get_contacts:
+  path:     /contacts/page/{page}/total/{total}
+  controller: AppBundle:Contact:getContacts
+  methods:    [GET]
+  requirements:
+    page: \d+
+    total: \d+

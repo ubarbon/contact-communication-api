@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Model\ModelResult;
+
 /**
  * ContactRepository
  *
@@ -10,4 +12,34 @@ namespace AppBundle\Repository;
  */
 class ContactRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param int $userId
+     * @param int $start
+     * @param int $limit
+     * @param string $contactNameOrder
+     * @return ModelResult
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getContactsResult($userId, $start = 0, $limit = 10, $contactNameOrder = 'ASC')
+    {
+        $contacts = $this->getEntityManager()->createQueryBuilder();
+        $contacts->from('AppBundle:Contact', 'contact')
+            ->where('contact.user = :userId')
+            ->setParameter('userId', $userId);
+
+
+        $totalRecords = clone $contacts;
+        $totalRecords->select($totalRecords->expr()->count('contact.id'));
+        $totalRecords = (int)$totalRecords->getQuery()->getSingleScalarResult();
+
+        $contacts = $contacts->select('contact')
+            ->setFirstResult($start)
+            ->setMaxResults($limit)
+            ->orderBy('contact.name', $contactNameOrder)
+            ->getQuery()
+            ->getArrayResult();
+
+        return new ModelResult($totalRecords, $contacts);
+    }
 }
