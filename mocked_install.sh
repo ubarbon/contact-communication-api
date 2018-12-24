@@ -8,3 +8,6 @@ php bin/console doctrine:fixtures:load -n
 
 #phpunit global install is required
 phpunit
+
+#call to communication command
+php bin/console app:comm:sync
