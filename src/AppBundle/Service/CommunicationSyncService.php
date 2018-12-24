@@ -27,6 +27,11 @@ class CommunicationSyncService
     private $logClient;
 
     /**
+     * @var Contact[] $contactContainer
+     */
+    private $contactContainer;
+
+    /**
      * CommunicationSyncService constructor.
      * @param EntityManagerInterface $em
      * @param LogClient $logClient
@@ -35,6 +40,7 @@ class CommunicationSyncService
     {
         $this->em = $em;
         $this->logClient = $logClient;
+        $this->resetContactContainer();
     }
 
 
@@ -44,6 +50,8 @@ class CommunicationSyncService
      */
     public function sync(User $user, $doFlush = false)
     {
+        $this->resetContactContainer();
+
         try {
             $logContent = $this->getLogClient()->getCommunicationLog($user);
 
@@ -80,6 +88,14 @@ class CommunicationSyncService
     }
 
     /**
+     * @return Contact[]
+     */
+    private function getContactContainer()
+    {
+        return $this->contactContainer;
+    }
+
+    /**
      * @param User $user
      * @param Log $log
      * @throws \Exception
@@ -105,10 +121,17 @@ class CommunicationSyncService
      */
     private function getContact(User $user, Log $log)
     {
-        $contact = $this->getEntityManager()->getRepository('AppBundle:Contact')->findOneBy(array(
-            'phoneNumber' => $log->getContactPhoneNumber(),
-            'user' => $user->getId()
-        ));
+        if (!$contact = $this->findContactInContainerBy($log->getContactPhoneNumber())) {
+            $contact = $this->getEntityManager()->getRepository('AppBundle:Contact')->findOneBy(array(
+                'phoneNumber' => $log->getContactPhoneNumber(),
+                'user' => $user->getId()
+            ));
+
+            if ($contact) {
+                $this->pushContact($contact);
+            }
+
+        }
 
         return $contact ?: $this->createContact($user, $log);
     }
@@ -127,7 +150,36 @@ class CommunicationSyncService
 
         $this->getEntityManager()->persist($contact);
 
+        $this->pushContact($contact);
+
         return $contact;
     }
 
+    private function resetContactContainer()
+    {
+        $this->contactContainer = array();
+    }
+
+    /**
+     * @param Contact $contact
+     */
+    private function pushContact(Contact $contact)
+    {
+        $this->contactContainer[] = $contact;
+    }
+
+    /**
+     * @param int $phoneNumber
+     * @return Contact|null
+     */
+    private function findContactInContainerBy($phoneNumber)
+    {
+        foreach ($this->getContactContainer() as $contact) {
+            if ($contact->getPhoneNumber() === $phoneNumber) {
+                return $contact;
+            }
+        }
+
+        return null;
+    }
 }
