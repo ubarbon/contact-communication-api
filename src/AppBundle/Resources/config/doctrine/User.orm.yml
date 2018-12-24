@@ -12,3 +12,6 @@ AppBundle\Entity\User:
       type: integer
       options:
         unsigned: true
+    lastSync:
+      type: datetime
+      nullable: true

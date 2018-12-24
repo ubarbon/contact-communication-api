@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Component\Client\Log\Log;
+use AppBundle\Model\CommunicationTypeInterface;
+
 /**
  * Communication
  */
@@ -155,6 +158,30 @@ abstract class Communication
         $this->contact = $contact;
 
         return $this;
+    }
+
+    /**
+     * @param User $user
+     * @param Contact $contact
+     * @param Log $log
+     * @return CallCommunication|SMSCommunication
+     * @throws \Exception
+     */
+    public static function build(User $user, Contact $contact, Log $log)
+    {
+        $communication = $log->getTypeValue() === CommunicationTypeInterface::CALL ? new CallCommunication() : new SMSCommunication();
+
+        $communication->setHash($log->getHash());
+        $communication->setUser($user);
+        $communication->setContact($contact);
+        $communication->setIncoming($log->getIncomingValue());
+        $communication->setDate($log->getDate());
+
+        if ($communication instanceof CallCommunication) {
+            $communication->setDuration($log->getDurationValue());
+        }
+
+        return $communication;
     }
 }
 

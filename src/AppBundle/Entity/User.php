@@ -16,6 +16,11 @@ class User extends BaseUser
      */
     private $phoneNumber;
 
+    /**
+     * @var \DateTime
+     */
+    private $lastSync;
+
     public function __construct()
     {
         parent::__construct();
@@ -45,4 +50,24 @@ class User extends BaseUser
     {
         return $this->phoneNumber;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastSync()
+    {
+        return $this->lastSync;
+    }
+
+    /**
+     * @param \DateTime $lastSync
+     * @return User
+     */
+    public function setLastSync(\DateTime $lastSync = null)
+    {
+        $this->lastSync = $lastSync;
+
+        return $this;
+    }
+
 }

@@ -21,3 +21,5 @@ parameters:
     ## To solve the problem with fos user
     app.mailer.from-no-reply: noreply@communication.com
     app.mailer.from-no-reply-alias: Communication No Reply
+
+    app.log_client.endpoint: 'https://gist.githubusercontent.com/miguelgf/e099e5e5bfde4f6428edb0ae94946c83/raw/fa27e59eb8f14ee131fca5c0c7332ff3b924e0b2'

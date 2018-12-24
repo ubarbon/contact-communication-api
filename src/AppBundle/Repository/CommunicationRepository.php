@@ -45,4 +45,22 @@ class CommunicationRepository extends \Doctrine\ORM\EntityRepository
 
         return new ModelResult($totalRecords, $communications);
     }
+
+
+    public function existsCommunicationBy($userId, $contactId, $hash)
+    {
+        $communication = $this->getEntityManager()->createQueryBuilder();
+        $communication->select('communication.id')
+            ->from('AppBundle:Communication', 'communication')
+            ->where('communication.user = :userId')
+            ->andWhere('communication.contact = :contactId')
+            ->andWhere('communication.hash = :hash')
+            ->setParameter('userId', $userId)
+            ->setParameter('contactId', $contactId)
+            ->setParameter('hash', $hash);
+
+        $communication = $communication->setMaxResults(1)->getQuery()->getArrayResult();
+
+        return $communication ? true : false;
+    }
 }

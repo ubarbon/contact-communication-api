@@ -11,4 +11,15 @@ namespace AppBundle\Repository;
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    public function getClientToSync($limit = 5)
+    {
+        $users = $this->getEntityManager()->createQueryBuilder();
+        $users->select('user')
+            ->from('AppBundle:User', 'user')
+            ->where('user.lastSync IS NULL')
+            ->orWhere('user.lastSync < :date')
+            ->setParameter('date', new \DateTime());
+
+        return $users->setMaxResults($limit)->orderBy('user.lastSync', 'ASC')->getQuery()->getResult();
+    }
 }

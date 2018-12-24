@@ -2,6 +2,7 @@
 
 namespace AppBundle\Model\Communication;
 
+use AppBundle\Model\CommunicationTypeInterface;
 use AppBundle\Model\ModelResult;
 
 /**
@@ -29,7 +30,7 @@ class CommunicationsResponse
                 'type' => $communication['type']
             );
 
-            if ($communication['type'] === 'call') {
+            if ($communication['type'] === CommunicationTypeInterface::CALL) {
                 $communicationItem['duration'] = (int)$communication['duration'];
             }
 
