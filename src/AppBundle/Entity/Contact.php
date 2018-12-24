@@ -18,7 +18,7 @@ class Contact
     private $name;
 
     /**
-     * @var string
+     * @var integer
      */
     private $phoneNumber;
 
@@ -64,7 +64,7 @@ class Contact
     /**
      * Set phoneNumber
      *
-     * @param string $phoneNumber
+     * @param integer $phoneNumber
      *
      * @return Contact
      */
@@ -78,7 +78,7 @@ class Contact
     /**
      * Get phoneNumber
      *
-     * @return string
+     * @return integer
      */
     public function getPhoneNumber()
     {

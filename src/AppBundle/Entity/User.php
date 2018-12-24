@@ -12,7 +12,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var string
+     * @var integer
      */
     private $phoneNumber;
 
@@ -25,7 +25,7 @@ class User extends BaseUser
     /**
      * Set phoneNumber
      *
-     * @param string $phoneNumber
+     * @param integer $phoneNumber
      *
      * @return User
      */
@@ -39,7 +39,7 @@ class User extends BaseUser
     /**
      * Get phoneNumber
      *
-     * @return string
+     * @return integer
      */
     public function getPhoneNumber()
     {

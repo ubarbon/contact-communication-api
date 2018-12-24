@@ -13,8 +13,9 @@ AppBundle\Entity\Contact:
       type: string
       length: '24'
     phoneNumber:
-      type: string
-      length: '9'
+      type: integer
+      options:
+        unsigned: true
   manyToOne:
     user:
       targetEntity: User

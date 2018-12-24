@@ -56,7 +56,6 @@ class CommunicationControllerTest extends AbstractPreAuthenticatedTest
     {
         $this->assertTrue(is_array($communication));
         $this->assertArrayHasKey('id', $communication);
-        $this->assertArrayHasKey('hash', $communication);
         $this->assertArrayHasKey('incoming', $communication);
         $this->assertArrayHasKey('date', $communication);
         $this->assertArrayHasKey('type', $communication);

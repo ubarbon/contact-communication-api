@@ -9,5 +9,6 @@ AppBundle\Entity\User:
         strategy: AUTO
   fields:
     phoneNumber:
-      type: string
-      length: '9'
+      type: integer
+      options:
+        unsigned: true

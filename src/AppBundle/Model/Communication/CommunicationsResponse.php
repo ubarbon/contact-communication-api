@@ -24,7 +24,6 @@ class CommunicationsResponse
         foreach ($modelResult->getRecords() as $communication) {
             $communicationItem = array(
                 'id' => $communication['id'],
-                'hash' => $communication['hash'],
                 'incoming' => $communication['incoming'],
                 'date' => $communication['date']->format(\DateTime::ISO8601),
                 'type' => $communication['type']
