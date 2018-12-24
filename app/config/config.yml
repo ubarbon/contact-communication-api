@@ -95,3 +95,11 @@ fos_oauth_server:
   access_token_class:  AppBundle\Entity\AccessToken
   refresh_token_class: AppBundle\Entity\RefreshToken
   auth_code_class:     AppBundle\Entity\AuthCode
+
+nelmio_cors:
+  paths:
+    '^/':
+      allow_origin: ['*']
+      allow_headers: ['*']
+      allow_methods: ['POST', 'PUT', 'PATCH', 'GET', 'DELETE', 'OPTIONS']
+      max_age: 3600
